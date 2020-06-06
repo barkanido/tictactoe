@@ -42,7 +42,7 @@ fn human_turn(board: &mut Board) {
                 let (row, col) = cur_move;
                 let cur_move = Move::new(row, col, Player::Human);
                 // perform move
-                if let Ok(_) = board.play_move(&cur_move) {
+                if board.play_move(&cur_move).is_ok() {
                     break;
                 }
             }

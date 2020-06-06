@@ -3,7 +3,7 @@ mod game;
 mod minimax;
 
 fn main() {
-    let b = board::Board::new(3, 3, 3);
+    let b = board::Board::new();
     game::play_game(b);
 }
 
