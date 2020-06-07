@@ -240,6 +240,8 @@ impl Board {
     }
 }
 
+const EMPTY_SPOT_SIGN: &str = " ";
+
 impl fmt::Display for Board {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let line_sep = iter::repeat("-")
@@ -250,7 +252,7 @@ impl fmt::Display for Board {
             write!(f, "|")?;
             for player in row {
                 match player {
-                    None => write!(f, "{}", " ")?,
+                    None => write!(f, "{}", EMPTY_SPOT_SIGN)?,
                     Some(Player::Human) => write!(f, "O")?,
                     Some(Player::Computer) => write!(f, "X")?,
                 };
