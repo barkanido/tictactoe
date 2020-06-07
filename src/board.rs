@@ -165,9 +165,9 @@ impl Grid {
                 }
             }
         }
-        if (&self.winnings).into_iter().any(|&x| x == x & human) {
+        if (&self.winnings).iter().any(|&x| x == x & human) {
             return Some(Player::Human);
-        } else if (&self.winnings).into_iter().any(|&x| x == x & computer) {
+        } else if (&self.winnings).iter().any(|&x| x == x & computer) {
             return Some(Player::Computer);
         }
         None
