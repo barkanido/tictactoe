@@ -34,9 +34,9 @@ impl fmt::Display for Player {
 }
 
 #[derive(Clone)]
-pub struct Board {
-    human_symbol: String,
-    computer_symbol: String,
+pub struct Board<'a> {
+    human_symbol: &'a str,
+    computer_symbol: &'a str,
     pub grid: Grid,
 }
 
@@ -191,11 +191,13 @@ impl IndexMut<(usize, usize)> for Grid {
     }
 }
 
-impl Board {
-    pub fn new() -> Board {
+impl<'a> Board<'a> {
+    pub fn new() -> Self {
+        let human_symbol: &'a str = "O";
+        let computer_symbol: &'a str = "X";
         Board {
-            human_symbol: "O".to_string(),
-            computer_symbol: "X".to_string(),
+            human_symbol,
+            computer_symbol,
             grid: Grid::new(),
         }
     }
@@ -223,7 +225,7 @@ impl Board {
         self.grid.iter_free_spots().count()
     }
 
-    pub fn iter_free_spots<'a>(&'a self) -> impl Iterator<Item = (usize, usize)> + 'a {
+    pub fn iter_free_spots<'b>(&'b self) -> impl Iterator<Item = (usize, usize)> + 'b {
         self.grid.iter_free_spots()
     }
 
@@ -242,7 +244,7 @@ impl Board {
 
 const EMPTY_SPOT_SIGN: &str = " ";
 
-impl fmt::Display for Board {
+impl<'a> fmt::Display for Board<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let line_sep = iter::repeat("-")
             .take((2 * COLUMNS) + 1)
